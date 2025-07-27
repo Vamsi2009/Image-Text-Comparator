@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comparison Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="container">
+        <h1>OCR Comparison Results</h1>
+        {% for result in results %}
+        <div class="result-row">
+            <div>
+                <h3>{{ result.image_name }}</h3>
+                <img src="{{ url_for('static', filename=result.image1_path) }}" alt="Image 1" class="result-image">
+                <div class="result-text {% if not result.is_match %}mismatch{% endif %}">
+                    {{ result.text1 }}
+                </div>
+            </div>
+            <div>
+                <h3>{{ result.image_name }}</h3>
+                <img src="{{ url_for('static', filename=result.image2_path) }}" alt="Image 2" class="result-image">
+                <div class="result-text {% if not result.is_match %}mismatch{% endif %}">
+                    {{ result.text2 }}
+                </div>
+            </div>
+        </div>
+        <div class="status {{ result.status }}">{{ result.status }}</div>
+        </div>
+        <hr>
+        {% endfor %}
+        {% if ask_cleanup %}
+            <form action="/cleanup" method="POST">
+             <button type="submit" class="cleanup-button">Clear Temp Folders</button>
+             <a href="{{ url_for('download_results') }}?data={{ result_data|urlencode }}" button type="submit" class="download">Download as Excel</a>
+             </form>
+        {% endif %}
+        
+    </div>
+</body>
+</html>
