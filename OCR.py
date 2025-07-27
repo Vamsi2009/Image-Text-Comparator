@@ -13,8 +13,8 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/images'
 
 # Absolute temp directories for inspection
-TEMP_DIR_1 = r'C:\Users\gudav\Downloads\Test\static\temp\temp1'
-TEMP_DIR_2 = r'C:\Users\gudav\Downloads\Test\static\temp\temp2'
+TEMP_DIR_1 = os.path.join('static', 'temp', 'temp1')
+TEMP_DIR_2 = os.path.join('static', 'temp', 'temp2')
 
 os.makedirs(TEMP_DIR_1, exist_ok=True)
 os.makedirs(TEMP_DIR_2, exist_ok=True)
